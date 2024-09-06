@@ -16,5 +16,5 @@ jobs:
 
       - name: Print current branch name
         run: |
-          BRANCH_NAME=$(git rev-parse —abbrev-ref HEAD)
+          BRANCH_NAME=$(git rev-parse --abbrev-ref HEAD)
           echo "Checked out branch: $BRANCH_NAME"
