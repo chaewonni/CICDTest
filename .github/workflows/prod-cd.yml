@@ -16,7 +16,7 @@ jobs:
           echo "Checked out branch: $BRANCH_NAME"
 
   release:
-    needs: test  # 'test' 작업이 완료된 후에 실행 
+    needs: test  # 'test' 작업이 완료된 후에 실행
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
