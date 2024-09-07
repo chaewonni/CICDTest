@@ -19,7 +19,7 @@ jobs:
     needs: test  # 'test' 작업이 완료된 후에 실행
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
 
       - name: 버전 정보 추출
         id: extract_version_name
