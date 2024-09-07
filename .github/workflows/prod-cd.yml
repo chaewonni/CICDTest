@@ -19,7 +19,7 @@ jobs:
     needs: test  # 'test' 작업이 완료된 후에 실행
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v2
 
       - name: 버전 정보 추출
         id: extract_version_name
@@ -35,10 +35,18 @@ jobs:
           
           echo "version=$VERSION" >> $GITHUB_OUTPUT
 
-      - name: Release 생성
-        uses: actions/create-release@v1
-        env: 
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # 'GITHUB_TOKEN'의 권한이 'Read & Write'로 설정되어 있어야 함
-        with: 
-          tag_name: ${{ steps.extract_version_name.outputs.version }}
-          release_name: ${{ steps.extract_version_name.outputs.version }}
+      # - name: Release 생성
+      #   uses: actions/create-release@v1
+      #   env: 
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # 'GITHUB_TOKEN'의 권한이 'Read & Write'로 설정되어 있어야 함
+      #   with: 
+      #     tag_name: ${{ steps.extract_version_name.outputs.version }}
+      #     release_name: ${{ steps.extract_version_name.outputs.version }}
+
+
+      - name: Create a GitHub release
+        uses: ncipollo/release-action@v1 
+        with:
+          tag: ${{ steps.tag_version.outputs.version }}
+          name: Release ${{ steps.tag_version.outputs.new_tag }}
+          body: ${{ steps.tag_version.outputs.changelog }}
