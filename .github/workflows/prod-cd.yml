@@ -37,7 +37,7 @@ jobs:
 
       - name: Create GitHub Release
         run: |
-          response=$(curl -o /dev/null -w "%{http_code}" -X POST \
+          response=$(curl -s -o /dev/null -w "%{http_code}" -X POST \
           -H "Accept: application/vnd.github+json" \
           -H "Authorization: Bearer ${{ secrets.REPOSITORY_TOKEN }}" \
           https://api.github.com/repos/chaewonni/CICDTest/releases \
