@@ -44,9 +44,17 @@ jobs:
       #     release_name: ${{ steps.extract_version_name.outputs.version }}
 
 
-      - name: Create a GitHub release
-        uses: ncipollo/release-action@v1 
-        with:
-          tag: ${{ steps.tag_version.outputs.version }}
-          name: Release ${{ steps.tag_version.outputs.version }}
-          body: ${{ steps.tag_version.outputs.changelog }}
+      - name: Create GitHub Release
+        run: |
+          curl -X POST \
+          -H "Accept: application/vnd.github.v3+json" \
+          -H "Authorization: Bearer <YOUR-TOKEN>" \
+          https://api.github.com/repos/chaewonni/CICDTest/releases \
+          -d '{"tag_name":"${{ steps.extract_version_name.outputs.version }}","target_commitish":"main","name":"${{ steps.extract_version_name.outputs.version }}","generate_release_notes":true}'
+
+        
+          # curl -X POST \
+          # -H "Authorization: token ${{ secrets.REPOSITORY_TOKEN }}" \
+          # -H "Accept: application/vnd.github+json" \
+          # https://api.github.com/repos/${{ github.repository }}/releases \
+          # -d '{"tag_name": "v1.0.0", "name": "Release v1.0.0", "body": "자동 릴리스 생성", "draft": false, "prerelease": false}'
